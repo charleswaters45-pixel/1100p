@@ -1,0 +1,37 @@
+[package]
+name = "mcp-client"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight, async MCP client supporting stdio and HTTP/SSE transports"
+license = "MIT"
+
+[features]
+default = ["stdio", "http"]
+stdio = []
+http = [
+    "dep:hyper",
+    "dep:hyper-util",
+    "dep:http-body-util",
+    "dep:http",
+]
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "io-util", "process", "sync", "macros", "time"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+futures-core = "0.3"
+
+# HTTP/SSE transport (optional)
+hyper       = { version = "1", features = ["client", "http1"], optional = true }
+hyper-util  = { version = "0.1", features = ["tokio", "client-legacy", "http1"], optional = true }
+http-body-util = { version = "0.1", optional = true }
+http        = { version = "1", optional = true }
+
+[dev-dependencies]
+tokio       = { version = "1", features = ["full"] }
+rstest      = "0.23"
+futures     = "0.3"
+axum        = { version = "0.8", features = [] }
+tokio-stream = { version = "0.1", features = ["sync"] }
