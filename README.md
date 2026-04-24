@@ -20,24 +20,24 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-mcp-client = { path = "." }
+eleven100p = { path = "." }
 ```
 
 To include only the transport(s) you need:
 
 ```toml
-mcp-client = { path = ".", default-features = false, features = ["stdio"] }
+eleven100p = { path = ".", default-features = false, features = ["stdio"] }
 ```
 
 ## Quick start
 
 ```rust
-use mcp_client::{McpClient, ToolEvent, CancellationToken};
+use eleven100p::{McpClient, ToolEvent, CancellationToken};
 use serde_json::json;
 use futures::StreamExt;
 
 #[tokio::main]
-async fn main() -> mcp_client::Result<()> {
+async fn main() -> eleven100p::Result<()> {
     // Connect over stdio (spawns the process for you)
     let client = McpClient::stdio("npx", &["-y", "@modelcontextprotocol/server-filesystem", "."]).await?;
 
@@ -53,7 +53,7 @@ async fn main() -> mcp_client::Result<()> {
     // Call a tool
     let result = client.call_tool("read_file", json!({ "path": "README.md" })).await?;
     for block in result.content {
-        if let mcp_client::ContentBlock::Text { text } = block {
+        if let eleven100p::ContentBlock::Text { text } = block {
             println!("{text}");
         }
     }
@@ -90,7 +90,7 @@ while let Some(event) = stream.next().await {
 ## Cancellation
 
 ```rust
-use mcp_client::CancellationToken;
+use eleven100p::CancellationToken;
 
 let token = CancellationToken::new();
 
@@ -103,7 +103,7 @@ tokio::spawn(async move {
 
 match client.call_tool_cancellable("slow_tool", json!({}), token).await {
     Ok(result) => println!("completed"),
-    Err(mcp_client::Error::Cancelled) => println!("cancelled by token"),
+    Err(eleven100p::Error::Cancelled) => println!("cancelled by token"),
     Err(e) => eprintln!("error: {e}"),
 }
 ```

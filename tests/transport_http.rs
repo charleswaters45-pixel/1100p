@@ -13,7 +13,7 @@ mod http_transport {
         Router,
     };
     use futures::StreamExt;
-    use mcp_client::{ContentBlock, McpClient};
+    use eleven100p::{ContentBlock, McpClient};
     use serde_json::{json, Value};
     use std::convert::Infallible;
     use tokio::sync::broadcast;
@@ -163,7 +163,7 @@ mod http_transport {
         let client = McpClient::http(&url).await.unwrap();
 
         let err = client.request("unknown/method", None).await.unwrap_err();
-        assert!(matches!(err, mcp_client::Error::Rpc { code: -32601, .. }));
+        assert!(matches!(err, eleven100p::Error::Rpc { code: -32601, .. }));
     }
 
     #[tokio::test]

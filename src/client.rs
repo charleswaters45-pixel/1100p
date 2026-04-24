@@ -240,7 +240,7 @@ impl McpClient {
             Some(json!({
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {},
-                "clientInfo": { "name": "mcp-client", "version": env!("CARGO_PKG_VERSION") }
+                "clientInfo": { "name": "1100p", "version": env!("CARGO_PKG_VERSION") }
             })),
         );
         sender.send_raw(serde_json::to_string(&init_req)?).await?;

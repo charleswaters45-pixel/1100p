@@ -1,5 +1,5 @@
 [package]
-name = "mcp-client"
+name = "eleven100p"
 version = "0.1.0"
 edition = "2021"
 description = "Lightweight, async MCP client supporting stdio and HTTP/SSE transports"
